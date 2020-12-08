@@ -89,7 +89,7 @@
     $(document).ready(() => {
       const link = "https://docs.google.com/forms/d/e/1FAIpQLSe73zOE7wxBeSRL1g8r-AwHicJMEaCpSNrASdrW24WDkgibzQ/viewform?usp=pp_url";
 
-      fetch("data.json")
+      fetch("https://raw.githubusercontent.com/iconclub/icon-metorship/master/data.json")
         .then(response => response.json())
         .then(json => {
           console.log(json.length);
