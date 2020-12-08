@@ -92,9 +92,8 @@
       fetch("https://raw.githubusercontent.com/iconclub/icon-metorship/master/data.json")
         .then(response => response.json())
         .then(json => {
-          console.log(json.length);
-          for (i = 0; i < json.length; i++) {
-            data = json[i];
+          for (i = 0; i < json.mentors.length; i++) {
+            data = json.mentors[i];
             $("#list").append(
               `<div class="col d-flex mt-5">
                 <div class="card shadow-sm w-100">

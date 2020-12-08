@@ -6,7 +6,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 mentors = []
 with open("data.json", "r") as json_file:
-    mentors = json.load(json_file)
+    data = json.load(json_file)
 
 # use creds to create a client to interact with the Google Drive API
 scope = ['https://spreadsheets.google.com/feeds']
@@ -17,14 +17,16 @@ client = gspread.authorize(creds)
 # Make sure you use the right name here.
 sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1lOMM-RsbHL2sBaI-hk6GBuW6Ptc-qvjEb4HyiY2f2dc/edit#gid=1120776380").sheet1
 # # Extract and print all of the values
-data = sheet.get_all_records()
+records = sheet.get_all_records()
 # reset
-for idx, mentor in enumerate(mentors):
-    mentors[idx]['soNguoiChon'] = 0
+for idx, mentor in enumerate(data['mentors']):
+    data['mentors'][idx]['soNguoiChon'] = 0
 
-for d in data:
-    idx = [idx for idx, mentor in enumerate(mentors) if mentor['nickname'] == d['Chọn mentor']][0]
-    mentors[idx]['soNguoiChon'] += 1
+for record in records:
+    idx = [idx for idx, mentor in enumerate(data['mentors']) if mentor['nickname'] == record['Chọn mentor']][0]
+    data['mentors'][idx]['soNguoiChon'] += 1
+
+data['update'] = str(time.time())
 
 with open("data.json", "w") as json_file:
-    json.dump(mentors, json_file, ensure_ascii=False)
+    json.dump(data, json_file, ensure_ascii=False)
