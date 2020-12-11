@@ -23,8 +23,10 @@ for idx, mentor in enumerate(data['mentors']):
     data['mentors'][idx]['soNguoiChon'] = 0
 
 for record in records:
+    print(record)
     idx = [idx for idx, mentor in enumerate(data['mentors']) if mentor['nickname'] == record['Chọn mentor']][0]
     data['mentors'][idx]['soNguoiChon'] += 1
+    data['mentors'][idx]['soNguoiChon'] = 4 if data['mentors'][idx]['soNguoiChon'] >= 4 else data['mentors'][idx]['soNguoiChon']
 
 data['update'] = str(time.time())
 
